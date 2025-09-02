@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, Download } from "lucide-react";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     // GSAP navigation animation
@@ -24,6 +25,14 @@ export default function Navigation() {
     };
 
     loadGSAP();
+
+    // Handle scroll effect
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
@@ -38,96 +47,148 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
+  const navItems = [
+    { href: "#about", label: "About" },
+    { href: "#timeline", label: "Journey" },
+    { href: "#projects", label: "Projects" },
+    { href: "#achievements", label: "Achievements" },
+    { href: "#contact", label: "Contact" }
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-custom border-b border-primary/20">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-background/95 backdrop-blur-md border-b border-border/50 shadow-lg' 
+        : 'bg-transparent'
+    }`}>
+      <div className="container-responsive py-3 sm:py-4">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-bold" data-testid="nav-logo">Tushant Kaura</div>
+          {/* Logo */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs sm:text-sm">TK</span>
+            </div>
+            <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent" data-testid="nav-logo">
+              <span className="hidden sm:inline">Tushant Kaura</span>
+              <span className="sm:hidden">TK</span>
+            </div>
+          </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <a 
+                key={item.href}
+                href={item.href} 
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="relative group text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
+                data-testid={`nav-${item.label.toLowerCase()}`}
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop Social Links */}
+          <div className="hidden lg:flex items-center gap-4">
             <a 
-              href="#about" 
-              onClick={(e) => handleNavClick(e, "#about")}
-              className="hover:text-primary transition-colors"
-              data-testid="nav-about"
+              href="https://github.com/TushantKaura1" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              ABOUT
+              <Github className="w-5 h-5" />
             </a>
             <a 
-              href="#projects" 
-              onClick={(e) => handleNavClick(e, "#projects")}
-              className="hover:text-primary transition-colors"
-              data-testid="nav-projects"
+              href="https://linkedin.com/in/tushantkaura/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              PROJECTS
+              <Linkedin className="w-5 h-5" />
             </a>
             <a 
-              href="#milestones" 
-              onClick={(e) => handleNavClick(e, "#milestones")}
-              className="hover:text-primary transition-colors"
-              data-testid="nav-milestones"
+              href="mailto:tushantkaura@gmail.com"
+              className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              MILESTONES
+              <Mail className="w-5 h-5" />
             </a>
             <a 
-              href="#achievements" 
-              onClick={(e) => handleNavClick(e, "#achievements")}
-              className="hover:text-primary transition-colors"
-              data-testid="nav-achievements"
+              href="/resume/Tushant Resume (1).pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2"
             >
-              ACHIEVEMENTS
+              <Download className="w-4 h-4" />
+              Resume
             </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white"
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
               data-testid="mobile-menu-toggle"
             >
-              {isMobileMenuOpen ? <X /> : <Menu />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border pt-4">
+          <div className="lg:hidden mt-4 pb-4 border-t border-border/50 pt-4">
             <div className="flex flex-col space-y-4">
-              <a 
-                href="#about" 
-                onClick={(e) => handleNavClick(e, "#about")}
-                className="hover:text-primary transition-colors"
-                data-testid="mobile-nav-about"
-              >
-                ABOUT
-              </a>
-              <a 
-                href="#projects" 
-                onClick={(e) => handleNavClick(e, "#projects")}
-                className="hover:text-primary transition-colors"
-                data-testid="mobile-nav-projects"
-              >
-                PROJECTS
-              </a>
-              <a 
-                href="#milestones" 
-                onClick={(e) => handleNavClick(e, "#milestones")}
-                className="hover:text-primary transition-colors"
-                data-testid="mobile-nav-milestones"
-              >
-                MILESTONES
-              </a>
-              <a 
-                href="#achievements" 
-                onClick={(e) => handleNavClick(e, "#achievements")}
-                className="hover:text-primary transition-colors"
-                data-testid="mobile-nav-achievements"
-              >
-                ACHIEVEMENTS
-              </a>
+              {navItems.map((item) => (
+                <a 
+                  key={item.href}
+                  href={item.href} 
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-card/30"
+                  data-testid={`mobile-nav-${item.label.toLowerCase()}`}
+                >
+                  {item.label}
+                </a>
+              ))}
+              
+              {/* Mobile Social Links */}
+              <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                <div className="flex items-center gap-3">
+                  <a 
+                    href="https://github.com/TushantKaura1" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300 bg-card/50 rounded-lg"
+                  >
+                    <Github className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/tushantkaura/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300 bg-card/50 rounded-lg"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                  <a 
+                    href="mailto:tushantkaura@gmail.com"
+                    className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300 bg-card/50 rounded-lg"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                </div>
+                <a 
+                  href="/resume/Tushant Resume (1).pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300 flex items-center gap-1"
+                >
+                  <Download className="w-3 h-3" />
+                  Resume
+                </a>
+              </div>
             </div>
           </div>
         )}

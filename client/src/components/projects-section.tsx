@@ -1,8 +1,91 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ExternalLink, Github, Eye, Calendar, ArrowRight } from "lucide-react";
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const projects = [
+    {
+      id: 1,
+      title: "Tushant Kaura Portfolio",
+      description: "Modern, responsive portfolio website showcasing my work and skills. Built with React, TypeScript, GSAP animations, and Tailwind CSS. Features smooth scrolling, interactive elements, and a cyberpunk aesthetic.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["React", "TypeScript", "GSAP", "Tailwind CSS", "Vite"],
+      category: "Web App",
+      date: "2024",
+      github: "https://github.com/TushantKaura1/TushantPortfolio",
+      live: "https://tushantkaura.com",
+      featured: true
+    },
+    {
+      id: 2,
+      title: "VR Research Platform",
+      description: "Researching cognitive processes and user perception in 3D environments at VERTEX Lab, Dalhousie University. Developing intuitive interfaces to improve user interaction and experience in virtual reality.",
+      image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["Unity", "C#", "VR SDK", "HCI Research", "Oculus"],
+      category: "Research",
+      date: "2024",
+      github: "https://github.com/TushantKaura1",
+      live: "https://vertex.dal.ca",
+      featured: true
+    },
+    {
+      id: 3,
+      title: "Persuasive Computing Lab",
+      description: "Developing systems that drive positive behavioral change through persuasive technology. Focus on underserved populations, mental health, and community well-being at Dalhousie University.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["React", "Node.js", "Psychology APIs", "User Research", "Analytics"],
+      category: "Research",
+      date: "2024",
+      github: "https://github.com/TushantKaura1",
+      live: "https://persuasive.dal.ca",
+      featured: true
+    },
+    {
+      id: 4,
+      title: "Web Development Projects",
+      description: "Collection of web applications including weather dashboards, data visualization tools, and interactive user interfaces. Built with modern web technologies and responsive design principles.",
+      image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["React", "JavaScript", "HTML/CSS", "APIs", "Responsive Design"],
+      category: "Web App",
+      date: "2024",
+      github: "https://github.com/TushantKaura1",
+      live: "https://github.com/TushantKaura1",
+      featured: false
+    },
+    {
+      id: 5,
+      title: "Data Analysis & Research",
+      description: "Streamlined data organization and analysis for research efficiency. Converting raw data into actionable insights using advanced analytical tools and statistical methods.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["Python", "Pandas", "NumPy", "Jupyter", "Matplotlib"],
+      category: "Data Science",
+      date: "2024",
+      github: "https://github.com/TushantKaura1",
+      live: "https://github.com/TushantKaura1",
+      featured: false
+    },
+    {
+      id: 6,
+      title: "STEM Mentorship Program",
+      description: "Leading research mentorship program at CISE-Atlantic, fostering equity and curiosity in STEM education. Developing interactive tools and educational resources for diverse student populations.",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+      technologies: ["Educational Tech", "STEM Outreach", "Mentorship", "Community Impact"],
+      category: "Education",
+      date: "2024",
+      github: "https://github.com/TushantKaura1",
+      live: "https://cise-atlantic.ca",
+      featured: false
+    }
+  ];
+
+  const categories = ["all", "Web App", "Research", "Data Science", "Education"];
+
+  const filteredProjects = activeFilter === "all" 
+    ? projects 
+    : projects.filter(project => project.category === activeFilter);
 
   useEffect(() => {
     const loadGSAP = async () => {
@@ -76,7 +159,7 @@ export default function ProjectsSection() {
             rotationX: 0,
             scale: 1,
             duration: 1,
-            delay: index * 0.2,
+            delay: index * 0.1,
             ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: card,
@@ -90,23 +173,18 @@ export default function ProjectsSection() {
           const content = card.querySelector('.project-content');
           const techTags = card.querySelectorAll('.tech-tag');
 
-          card.addEventListener('mouseenter', (e) => {
-            const rect = card.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
+          card.addEventListener('mouseenter', () => {
             gsap.to(card, {
-              scale: 1.05,
-              rotationY: 10,
-              z: 100,
-              duration: 0.5,
+              scale: 1.02,
+              y: -10,
+              duration: 0.3,
               ease: "power2.out"
             });
 
             if (image) {
               gsap.to(image, {
                 scale: 1.1,
-                duration: 0.5,
+                duration: 0.3,
                 ease: "power2.out"
               });
             }
@@ -120,8 +198,8 @@ export default function ProjectsSection() {
             }
 
             gsap.to(techTags, {
-              scale: 1.1,
-              y: -3,
+              scale: 1.05,
+              y: -2,
               duration: 0.3,
               stagger: 0.05,
               ease: "power2.out"
@@ -131,16 +209,15 @@ export default function ProjectsSection() {
           card.addEventListener('mouseleave', () => {
             gsap.to(card, {
               scale: 1,
-              rotationY: 0,
-              z: 0,
-              duration: 0.5,
+              y: 0,
+              duration: 0.3,
               ease: "power2.out"
             });
 
             if (image) {
               gsap.to(image, {
                 scale: 1,
-                duration: 0.5,
+                duration: 0.3,
                 ease: "power2.out"
               });
             }
@@ -161,54 +238,6 @@ export default function ProjectsSection() {
               ease: "power2.out"
             });
           });
-
-          card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            gsap.to(card, {
-              rotationX: -y * 0.05,
-              rotationY: x * 0.05,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          });
-        });
-
-        // Project reveal animation on scroll
-        ScrollTrigger.create({
-          trigger: "#projects",
-          start: "top 80%",
-          end: "bottom 20%",
-          onEnter: () => {
-            gsap.to('.projects-grid', {
-              clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-              duration: 1.5,
-              ease: "power3.out"
-            });
-          }
-        });
-
-        // Technology tags wave animation
-        const techTags = document.querySelectorAll('.tech-tag');
-        ScrollTrigger.create({
-          trigger: "#projects",
-          start: "top 60%",
-          onEnter: () => {
-            gsap.fromTo(techTags, {
-              opacity: 0,
-              scale: 0,
-              rotation: 180
-            }, {
-              opacity: 1,
-              scale: 1,
-              rotation: 0,
-              duration: 0.5,
-              stagger: 0.1,
-              ease: "back.out(1.7)"
-            });
-          }
         });
 
         // Parallax scroll effect for floating elements
@@ -241,9 +270,22 @@ export default function ProjectsSection() {
     <section 
       ref={sectionRef}
       id="projects" 
-      className="py-24 px-6 relative overflow-hidden"
+      className="py-32 px-6 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <span className="text-primary font-medium tracking-wider uppercase text-sm mb-4 block">
+            Portfolio
+          </span>
+          <h2 className="text-5xl md:text-7xl font-bold mb-8">
+            Featured <span className="text-primary">Projects</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            A showcase of my work spanning web development, research projects, and educational initiatives
+          </p>
+        </div>
+
         {/* Scrolling text header */}
         <div className="overflow-hidden mb-16">
           <div 
@@ -251,126 +293,154 @@ export default function ProjectsSection() {
             className="whitespace-nowrap" 
             data-testid="projects-header"
           >
-            <span className="text-4xl font-bold text-muted-foreground">
-              Recent Work · Recent Work · Recent Work · Recent Work · Recent Work · Recent Work · Recent Work · Recent Work · Recent Work ·
+            <span className="text-4xl font-bold text-muted-foreground/30">
+              Web Development · Research · Data Science · Education · Innovation · Web Development · Research · Data Science · Education · Innovation ·
             </span>
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="projects-grid grid md:grid-cols-2 gap-8 mb-16">
-          {/* AR Adventure Game */}
-          <div className="project-card bg-card rounded-xl overflow-hidden border border-border transform-gpu" data-testid="project-ar-game">
-            <img 
-              src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" 
-              alt="Game development workspace with code and 3D models" 
-              className="project-image w-full h-48 object-cover"
-              data-testid="project-ar-image"
-            />
-            <div className="project-content p-6">
-              <h3 className="text-xl font-bold mb-3" data-testid="project-ar-title">AR Adventure Game</h3>
-              <p className="text-muted-foreground mb-4" data-testid="project-ar-description">
-                Cross-Platform AR Development using Unity 3D with AR Foundation. Integrated ARKit and ARCore 
-                for accurate spatial tracking and Vuforia for advanced image recognition.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Python</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Unity 3D</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">AR Foundation</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">PostgreSQL</span>
-              </div>
-              <div className="text-primary hover:text-primary/80 font-medium cursor-pointer" data-testid="project-ar-link">
-                View Project →
-              </div>
-            </div>
-          </div>
-
-          {/* Weather App */}
-          <div className="project-card bg-card rounded-xl overflow-hidden border border-border transform-gpu" data-testid="project-weather">
-            <img 
-              src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" 
-              alt="Weather dashboard showing forecast data and analytics" 
-              className="project-image w-full h-48 object-cover"
-              data-testid="project-weather-image"
-            />
-            <div className="project-content p-6">
-              <h3 className="text-xl font-bold mb-3" data-testid="project-weather-title">Weather App</h3>
-              <p className="text-muted-foreground mb-4" data-testid="project-weather-description">
-                Comprehensive weather app providing real-time updates, 5-day forecast, air quality index, 
-                and hourly forecasts using OpenWeather API and modern web technologies.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">JavaScript</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Weather API</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">HTML/CSS</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Java</span>
-              </div>
-              <div className="text-primary hover:text-primary/80 font-medium cursor-pointer" data-testid="project-weather-link">
-                View Project →
-              </div>
-            </div>
-          </div>
-
-          {/* Research Projects */}
-          <div className="project-card bg-card rounded-xl overflow-hidden border border-border transform-gpu" data-testid="project-research">
-            <img 
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" 
-              alt="Data analytics dashboard with charts and graphs" 
-              className="project-image w-full h-48 object-cover"
-              data-testid="project-research-image"
-            />
-            <div className="project-content p-6">
-              <h3 className="text-xl font-bold mb-3" data-testid="project-research-title">Research Data Analysis</h3>
-              <p className="text-muted-foreground mb-4" data-testid="project-research-description">
-                Streamlined data organization for research efficiency using advanced analytical tools 
-                to convert raw data into actionable insights for decision-making.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Python</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Pandas</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">NumPy</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">R</span>
-              </div>
-              <div className="text-primary hover:text-primary/80 font-medium cursor-pointer" data-testid="project-research-link">
-                View Project →
-              </div>
-            </div>
-          </div>
-
-          {/* VR Research */}
-          <div className="project-card bg-card rounded-xl overflow-hidden border border-border transform-gpu" data-testid="project-vr">
-            <img 
-              src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" 
-              alt="VR research setup with headsets and motion tracking equipment" 
-              className="project-image w-full h-48 object-cover"
-              data-testid="project-vr-image"
-            />
-            <div className="project-content p-6">
-              <h3 className="text-xl font-bold mb-3" data-testid="project-vr-title">VR & HCI Research</h3>
-              <p className="text-muted-foreground mb-4" data-testid="project-vr-description">
-                Researching cognitive processes and user perception in 3D environments at VERTEX Lab, 
-                developing intuitive interfaces to improve user interaction and experience.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">VR</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">HCI</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Research</span>
-                <span className="tech-tag px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">C/C++</span>
-              </div>
-              <div className="text-primary hover:text-primary/80 font-medium cursor-pointer" data-testid="project-vr-link">
-                View Project →
-              </div>
-            </div>
-          </div>
+        {/* Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveFilter(category)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                activeFilter === category
+                  ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                  : 'bg-card/50 text-muted-foreground hover:bg-card/80 hover:text-foreground'
+              }`}
+            >
+              {category === "all" ? "All Projects" : category}
+            </button>
+          ))}
         </div>
 
+        {/* Projects Grid */}
+        <div className="projects-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {filteredProjects.map((project, index) => (
+            <div 
+              key={project.id} 
+              className={`project-card group bg-card/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 transform-gpu hover:border-primary/50 transition-all duration-300 ${
+                project.featured ? 'lg:col-span-2' : ''
+              }`}
+              data-testid={`project-${project.id}`}
+            >
+              <div className="relative overflow-hidden">
+                <img 
+                  src={project.image}
+                  alt={project.title}
+                  className="project-image w-full h-48 object-cover transition-transform duration-500"
+                  data-testid={`project-${project.id}-image`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <a 
+                    href={project.github}
+                    className="p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                    data-testid={`project-${project.id}-github`}
+                  >
+                    <Github className="w-4 h-4 text-white" />
+                  </a>
+                  <a 
+                    href={project.live}
+                    className="p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                    data-testid={`project-${project.id}-live`}
+                  >
+                    <ExternalLink className="w-4 h-4 text-white" />
+                  </a>
+                </div>
+                {project.featured && (
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-white text-xs font-medium rounded-full">
+                    Featured
+                  </div>
+                )}
+              </div>
+              
+              <div className="project-content p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-sm text-primary font-medium">{project.category}</span>
+                  <span className="text-muted-foreground">•</span>
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                    <Calendar className="w-3 h-3" />
+                    {project.date}
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-bold mb-3 text-foreground" data-testid={`project-${project.id}-title`}>
+                  {project.title}
+                </h3>
+                
+                <p className="text-muted-foreground mb-4 leading-relaxed" data-testid={`project-${project.id}-description`}>
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span 
+                      key={techIndex}
+                      className="tech-tag px-3 py-1 bg-primary/10 text-primary rounded-full text-sm border border-primary/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <a 
+                    href={project.live}
+                    className="text-primary hover:text-primary/80 font-medium flex items-center gap-2 group/link transition-colors"
+                    data-testid={`project-${project.id}-link`}
+                  >
+                    View Project
+                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </a>
+                  <div className="flex gap-2">
+                    <a 
+                      href={project.github}
+                      className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                    </a>
+                    <a 
+                      href={project.live}
+                      className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
         <div className="text-center" data-testid="projects-footer">
-          <p className="text-lg text-muted-foreground mb-6">
-            I've been working on projects for over <span className="text-primary font-semibold">2 years</span>. 
-            You can view my project archive with the following link.
-          </p>
-          <div className="magnetic-btn border border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-medium cursor-pointer" data-testid="link-archives">
-            View Archives
+          <div className="bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-2xl p-12 border border-primary/20">
+            <h3 className="text-3xl font-bold mb-4">Interested in collaborating?</h3>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              I'm always excited to work on new projects and explore innovative solutions. 
+              Let's create something amazing together!
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a 
+                href="mailto:tushantkaura@gmail.com"
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-primary/25"
+              >
+                <ExternalLink className="w-5 h-5" />
+                Get In Touch
+              </a>
+              <a 
+                href="https://github.com/TushantKaura1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-full font-medium transition-all duration-300 flex items-center gap-3"
+              >
+                <Github className="w-5 h-5" />
+                View All Projects
+              </a>
+            </div>
           </div>
         </div>
       </div>

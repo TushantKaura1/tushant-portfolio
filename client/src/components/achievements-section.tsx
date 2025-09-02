@@ -214,18 +214,18 @@ export default function AchievementsSection() {
             </p>
           </div>
 
-          {/* Innovation Award */}
-          <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-innovation">
+          {/* Web Developer Intern */}
+          <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-developer">
             <div className="achievement-icon-container w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Trophy className="achievement-icon text-primary w-8 h-8" />
+              <Code className="achievement-icon text-primary w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold mb-2" data-testid="achievement-innovation-title">Most Innovative Award</h3>
-            <p className="text-muted-foreground" data-testid="achievement-innovation-description">
-              Recognized for Creativity and Technical Excellence at Global Game Jam
+            <h3 className="text-xl font-bold mb-2" data-testid="achievement-developer-title">Web Developer Intern</h3>
+            <p className="text-muted-foreground" data-testid="achievement-developer-description">
+              Currently developing responsive web applications at Futura Holding Group
             </p>
           </div>
 
-          {/* Research Assistant */}
+          {/* Multi-Lab Research */}
           <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-research">
             <div className="achievement-icon-container w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <Microscope className="achievement-icon text-primary w-8 h-8" />
@@ -236,7 +236,7 @@ export default function AchievementsSection() {
             </p>
           </div>
 
-          {/* STEM Mentor */}
+          {/* Lead STEM Mentor */}
           <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-mentor">
             <div className="achievement-icon-container w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <Users className="achievement-icon text-primary w-8 h-8" />
@@ -247,14 +247,14 @@ export default function AchievementsSection() {
             </p>
           </div>
 
-          {/* Web Developer */}
-          <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-developer">
+          {/* VR & HCI Research */}
+          <div className="achievement-card bg-card rounded-xl p-8 border border-border text-center transform-gpu" data-testid="achievement-vr">
             <div className="achievement-icon-container w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Code className="achievement-icon text-primary w-8 h-8" />
+              <Trophy className="achievement-icon text-primary w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold mb-2" data-testid="achievement-developer-title">Professional Web Developer</h3>
-            <p className="text-muted-foreground" data-testid="achievement-developer-description">
-              Developing responsive applications at Futura Holding Group
+            <h3 className="text-xl font-bold mb-2" data-testid="achievement-vr-title">VR & HCI Researcher</h3>
+            <p className="text-muted-foreground" data-testid="achievement-vr-description">
+              Researching cognitive processes and user perception in 3D environments
             </p>
           </div>
 
