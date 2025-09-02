@@ -1,0 +1,72 @@
+Tushant Kaura
+437-799-3699 | tushantkaura@gmail.com | linkedin.com/in/tushantkaura/ | github.com/TushantKaura1
+Education
+Dalhousie University Halifax, NS
+Bachelor of Applied Computer Science Sept. 2024 – Apr 2028
+Woodlawn High School Dartmouth, NS
+High School Diploma Sept. 2023 – July 2024
+Experience
+Web Developer Intern Apr 2025 – Present
+Futura Holding Group Halifax, NS
+• Develops responsive web applications using React, HTML, CSS, and JavaScript.
+• Implements interactive UI components and optimizes frontend performance.
+• Collaborates on full-stack development, integrating REST APIs and backend services.
+• Ensures cross-browser compatibility and accessibility in web applications.
+Lead Research Mentor — STEM Inclusion Apr 2025 – Present
+CISE-Atlantic Halifax, NS
+• Mentors students from diverse backgrounds in conducting physics-based research, fostering equity and curiosity in
+STEM education.
+• Leads collaborative research teams in designing and analyzing experiments, promoting inclusive participation in
+scientific inquiry.
+• Develops interactive web tools and educational resources using React, HTML, CSS, and JavaScript to support
+STEM outreach.
+Undergraduate Research and Development Assistant Vertex Labs, Dalhousie University Nov 2024 – Present
+Halifax, NS
+• Researching VR and HCI at Dalhousie University’s VERTEX Lab, focusing on cognitive processes and user
+perception in 3D environments.
+• Developing intuitive, performance-enhancing interfaces to improve user interaction and experience.
+• Passionate about bridging cutting-edge technology with user-centered design through multidisciplinary
+collaboration.
+Research Assistant and Software Developer Persuasive Computing Lab, Dalhousie University Jan 2025 – Present
+Halifax, NS
+• Specializes in designing persuasive and behavior change systems using user-centered approaches at Dalhousie
+University’s Persuasive Computing Lab.
+• Develops interactive technologies to empower underserved populations, promoting mental health, safety,
+environmental sustainability, and community well-being.
+• Employs adaptive and intelligent system design to address real-life challenges and generate meaningful, positive
+change.
+Research Assistant and Data Analyst Dec 2024 – Apr 2025
+Dalhousie University Halifax, NS
+• Focused on streamlining data organization to enhance research efficiency and standardize data collection methods.
+• Utilizing advanced analytical tools to convert raw data into actionable insights for in-depth analysis.
+• Driving improved decision-making and operational efficiency by implementing robust data analysis frameworks.
+Course Representative - CSCI 1120 Jan 2025 – Apr 2025
+Dalhousie University Halifax, NS
+• Acted as a liaison between students and faculty, addressing concerns and ensuring effective communication.
+• Organized study sessions and peer support initiatives to enhance student learning outcomes.
+• Collaborated with faculty to improve course structure and student engagement strategies.
+Projects
+AR Adventure Game | Python, Flask, React, PostgreSQL, PyCharm Feb 2025
+• Cross-Platform AR Development: Utilized Unity 3D with AR Foundation to build a seamless, cross-platform
+augmented reality experience.
+• Robust Spatial Tracking: Integrated ARKit and ARCore for accurate spatial mapping and environment interaction,
+ensuring precise AR object placement.
+• Enhanced Immersive Interaction: Leveraged Vuforia for advanced image and object recognition, enabling dynamic,
+interactive game mechanics within the AR environment.
+Weather App | Weather API, Python, Maven, TravisCI, Git, Java Jan 2025
+• Comprehensive Weather Insights: Developed a sleek, user-friendly weather app that provides real-time weather
+updates, a 5-day forecast, air quality index (AQI), sunrise/sunset times, and hourly forecasts.
+• Robust Tech Stack: Built using HTML, CSS, and JavaScript, with OpenWeather API for real-time data fetching,
+Moment.js for time formatting, and FontAwesome Boxicons for intuitive UI design.
+• Future Enhancements Deployment: Plans to improve UI/UX, integrate additional meteorological data (UV index,
+historical trends), and deploy globally for widespread accessibility.
+Technical Skills
+Languages: Java, Python, C/C++, SQL (Postgres), JavaScript, HTML/CSS, R
+Frameworks: React, Node.js, WordPress, FastAPI
+Developer Tools: Git, TravisCI, Google Cloud Platform, VS Code, Visual Studio, PyCharm, IntelliJ, Eclipse
+Libraries: Mediapipe, pandas, NumPy, Matplotlib, CV2
+Scholarships & Awards
+Entrance Scholarship 2024
+Awarded $25,000 for Academic and Extracurricular Excellence Dalhousie University
+Most Innovative Award 2024
+Recognized for Creativity and Technical Excellence Global Game Jam
