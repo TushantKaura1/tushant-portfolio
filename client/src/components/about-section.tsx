@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Award, GraduationCap, Code, Brain, Users, Cpu } from "lucide-react";
+import MatrixRain from "./matrix-rain";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -29,14 +30,7 @@ export default function AboutSection() {
           matrixBg.className = 'absolute inset-0 matrix-bg pointer-events-none';
           section.appendChild(matrixBg);
 
-          // Add data stream lines
-          for (let i = 0; i < 2; i++) {
-            const streamLine = document.createElement('div');
-            streamLine.className = 'absolute left-0 w-full h-0.5 data-stream-line opacity-15 pointer-events-none';
-            streamLine.style.top = `${33 + i * 33}%`;
-            streamLine.style.animationDelay = `${i * 3}s`;
-            section.appendChild(streamLine);
-          }
+          // Horizontal data stream lines removed
 
           // Create floating tech elements
           for (let i = 0; i < 30; i++) {
@@ -240,6 +234,9 @@ export default function AboutSection() {
       id="about" 
       className="section-padding relative overflow-hidden"
     >
+      {/* Matrix Rain Background */}
+      <MatrixRain intensity="medium" color="#10b981" speed="medium" className="absolute inset-0" />
+      
       <div className="container-responsive relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">

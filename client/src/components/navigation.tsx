@@ -68,10 +68,6 @@ export default function Navigation() {
             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-primary to-blue-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xs sm:text-sm">TK</span>
             </div>
-            <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent" data-testid="nav-logo">
-              <span className="hidden sm:inline">Tushant Kaura</span>
-              <span className="sm:hidden">TK</span>
-            </div>
           </div>
           
           {/* Desktop Menu */}

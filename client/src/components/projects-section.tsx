@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github, Eye, Calendar, ArrowRight } from "lucide-react";
+import MatrixRain from "./matrix-rain";
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -272,6 +273,9 @@ export default function ProjectsSection() {
       id="projects" 
       className="py-32 px-6 relative overflow-hidden"
     >
+      {/* Matrix Rain Background */}
+      <MatrixRain intensity="low" color="#10b981" speed="slow" className="absolute inset-0" />
+      
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
