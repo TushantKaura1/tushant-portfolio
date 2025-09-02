@@ -114,6 +114,151 @@
     background: linear-gradient(to bottom, transparent, #a855f7, transparent);
   }
 
+  /* Vine Animation Styles */
+  .vine-stem {
+    background: linear-gradient(to bottom, #16a34a, #15803d, #166534);
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+    transform-origin: top;
+  }
+
+  .vine-branch {
+    background: linear-gradient(to right, #16a34a, #22c55e);
+    border-radius: 2px;
+    transform-origin: left;
+    box-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);
+  }
+
+  .vine-leaf {
+    background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e, #16a34a);
+    box-shadow: 
+      0 0 15px rgba(34, 197, 94, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform-origin: center;
+    position: relative;
+  }
+
+  .vine-leaf::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 50%;
+    background: rgba(22, 163, 74, 0.6);
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+  }
+
+  .experience-card {
+    backdrop-filter: blur(10px);
+    background: rgba(var(--card), 0.85);
+    border: 1px solid rgba(var(--border), 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .experience-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .experience-card:hover::before {
+    left: 100%;
+  }
+
+  .company-logo {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .company-logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .company-logo:hover::after {
+    opacity: 1;
+  }
+
+  .vine-particle {
+    animation: vineParticleFloat 4s infinite ease-in-out;
+  }
+
+  @keyframes vineParticleFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.2); }
+  }
+
+  /* Vine node spacing and positioning */
+  .vine-node {
+    min-height: 120px;
+  }
+
+  .vine-node .vine-branch {
+    top: 60px;
+  }
+
+  .vine-node .vine-leaf {
+    top: 54px;
+  }
+
+  /* Responsive vine adjustments */
+  @media (max-width: 768px) {
+    .vine-stem {
+      left: 20px !important;
+    }
+    
+    .vine-branch {
+      width: 40px !important;
+      left: 20px !important;
+    }
+    
+    .vine-leaf {
+      left: 55px !important;
+    }
+    
+    .experience-card {
+      margin-left: 80px;
+      max-width: calc(100% - 80px);
+    }
+  }
+
+  /* Special effects for vine growth */
+  .vine-grow-effect {
+    position: relative;
+  }
+
+  .vine-grow-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(34, 197, 94, 0.1), transparent);
+    opacity: 0;
+    animation: vineGrowGlow 2s ease-out forwards;
+  }
+
+  @keyframes vineGrowGlow {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
   .scroll-indicator {
     animation: bounce 2s infinite;
   }

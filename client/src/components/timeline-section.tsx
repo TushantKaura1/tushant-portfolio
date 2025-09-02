@@ -187,6 +187,186 @@ export default function TimelineSection() {
           ease: "power1.inOut",
           stagger: 0.1
         });
+
+        // Advanced Vine Animation System
+        const createVineAnimation = () => {
+          const vineNodes = document.querySelectorAll('.vine-node');
+          const vineStem = document.querySelector('.vine-stem');
+          
+          // Calculate total vine height
+          const totalHeight = vineNodes.length * 140; // 20 * 7 (space-y-20 + node height)
+          
+          if (vineStem) {
+            gsap.set(vineStem, { height: totalHeight });
+          }
+
+          // Create master vine timeline
+          const vineTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#experience-vine",
+              start: "top 60%",
+              end: "bottom 40%",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          // Animate vine stem growth
+          vineTimeline.to('.vine-stem', {
+            opacity: 1,
+            scaleY: 1,
+            duration: 2,
+            ease: "power2.out",
+            transformOrigin: "top"
+          });
+
+          // Animate each vine node sequentially
+          vineNodes.forEach((node, index) => {
+            const vineNumber = node.getAttribute('data-vine');
+            const branch = node.querySelector('.vine-branch');
+            const leaf = node.querySelector('.vine-leaf');
+            const card = node.querySelector('.experience-card');
+            const logo = node.querySelector('.company-logo');
+
+            // Create individual vine node timeline
+            const nodeTimeline = gsap.timeline();
+
+            // Branch grows out
+            nodeTimeline.to(branch, {
+              opacity: 1,
+              scaleX: 1,
+              duration: 0.5,
+              ease: "power2.out",
+              transformOrigin: "left"
+            })
+            
+            // Leaf pops in with bounce
+            .to(leaf, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.3,
+              ease: "back.out(2.5)"
+            }, "-=0.2")
+            
+            // Card scales in with pop effect
+            .to(card, {
+              scale: 1,
+              duration: 0.6,
+              ease: "back.out(1.7)"
+            }, "-=0.1")
+            
+            // Logo pulse effect
+            .to(logo, {
+              scale: 1.2,
+              duration: 0.2,
+              ease: "power2.out"
+            })
+            .to(logo, {
+              scale: 1,
+              duration: 0.2,
+              ease: "power2.out"
+            });
+
+            // Add node animation to master timeline with stagger
+            vineTimeline.add(nodeTimeline, 0.3 + index * 0.4);
+
+            // Add hover interactions for vine nodes
+            node.addEventListener('mouseenter', () => {
+              gsap.to(card, {
+                scale: 1.05,
+                y: -5,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+              
+              gsap.to(leaf, {
+                scale: 1.3,
+                rotation: 360,
+                duration: 0.5,
+                ease: "back.out(1.7)"
+              });
+              
+              gsap.to(branch, {
+                scaleX: 1.2,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            });
+
+            node.addEventListener('mouseleave', () => {
+              gsap.to(card, {
+                scale: 1,
+                y: 0,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+              
+              gsap.to(leaf, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+              
+              gsap.to(branch, {
+                scaleX: 1,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            });
+
+            // Continuous subtle vine movement
+            gsap.to(leaf, {
+              rotation: () => Math.random() * 20 - 10,
+              y: () => Math.random() * 10 - 5,
+              duration: () => Math.random() * 3 + 2,
+              repeat: -1,
+              yoyo: true,
+              ease: "power1.inOut",
+              delay: index * 0.2
+            });
+          });
+
+          // Add floating vine particles
+          const createVineParticles = () => {
+            const vineContainer = document.querySelector('#experience-vine');
+            if (!vineContainer) return;
+
+            for (let i = 0; i < 15; i++) {
+              const particle = document.createElement('div');
+              particle.className = 'vine-particle';
+              particle.style.cssText = `
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: rgba(34, 197, 94, 0.6);
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                pointer-events: none;
+                opacity: 0;
+              `;
+              vineContainer.appendChild(particle);
+            }
+          };
+
+          createVineParticles();
+
+          // Animate vine particles
+          gsap.to('.vine-particle', {
+            opacity: 1,
+            y: () => Math.random() * 100 - 50,
+            x: () => Math.random() * 50 - 25,
+            scale: () => Math.random() * 2 + 0.5,
+            duration: () => Math.random() * 4 + 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut",
+            stagger: 0.2
+          });
+        };
+
+        // Initialize vine animation
+        createVineAnimation();
       }
     };
 
@@ -254,6 +434,154 @@ export default function TimelineSection() {
                 Research Assistant at VERTEX Labs focusing on VR/HCI, and Software Developer at 
                 Persuasive Computing Lab creating behavior change systems. Also mentoring STEM inclusion initiatives.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Experience Vine Animation Section */}
+        <div className="mt-32 relative" id="experience-vine">
+          <h2 className="text-4xl md:text-6xl font-bold text-center mb-16" data-testid="experience-title">
+            Professional Journey
+          </h2>
+          
+          {/* Main Vine Container */}
+          <div className="relative max-w-6xl mx-auto">
+            {/* Central Vine Stem */}
+            <div className="vine-stem absolute left-1/2 top-0 w-1 bg-gradient-to-b from-green-500 to-green-700 transform -translate-x-1/2 opacity-0"></div>
+            
+            {/* Experience Nodes */}
+            <div className="space-y-20">
+              {/* Futura Holding Group */}
+              <div className="vine-node relative flex items-center" data-vine="1" data-testid="experience-futura">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">FH</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Web Developer Intern</h3>
+                      <p className="text-sm text-muted-foreground">Futura Holding Group</p>
+                      <p className="text-xs text-primary">Apr 2025 – Present</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Develops responsive web applications using React, HTML, CSS, and JavaScript. 
+                    Implements interactive UI components and optimizes frontend performance.
+                  </p>
+                </div>
+              </div>
+
+              {/* CISE-Atlantic */}
+              <div className="vine-node relative flex items-center" data-vine="2" data-testid="experience-cise">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">CA</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Lead Research Mentor</h3>
+                      <p className="text-sm text-muted-foreground">CISE-Atlantic</p>
+                      <p className="text-xs text-primary">Apr 2025 – Present</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Mentors students from diverse backgrounds in conducting physics-based research, 
+                    fostering equity and curiosity in STEM education.
+                  </p>
+                </div>
+              </div>
+
+              {/* VERTEX Labs */}
+              <div className="vine-node relative flex items-center" data-vine="3" data-testid="experience-vertex">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-cyan-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">VX</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Research Assistant</h3>
+                      <p className="text-sm text-muted-foreground">VERTEX Labs, Dalhousie</p>
+                      <p className="text-xs text-primary">Nov 2024 – Present</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Researching VR and HCI, focusing on cognitive processes and user 
+                    perception in 3D environments.
+                  </p>
+                </div>
+              </div>
+
+              {/* Persuasive Computing Lab */}
+              <div className="vine-node relative flex items-center" data-vine="4" data-testid="experience-persuasive">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">PC</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Software Developer</h3>
+                      <p className="text-sm text-muted-foreground">Persuasive Computing Lab</p>
+                      <p className="text-xs text-primary">Jan 2025 – Present</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Designs persuasive and behavior change systems using user-centered approaches 
+                    to empower underserved populations.
+                  </p>
+                </div>
+              </div>
+
+              {/* Data Analyst */}
+              <div className="vine-node relative flex items-center" data-vine="5" data-testid="experience-analyst">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">DU</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Data Analyst</h3>
+                      <p className="text-sm text-muted-foreground">Dalhousie University</p>
+                      <p className="text-xs text-primary">Dec 2024 – Apr 2025</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Streamlined data organization to enhance research efficiency and 
+                    convert raw data into actionable insights.
+                  </p>
+                </div>
+              </div>
+
+              {/* Course Representative */}
+              <div className="vine-node relative flex items-center" data-vine="6" data-testid="experience-representative">
+                <div className="vine-branch absolute left-1/2 w-20 h-0.5 bg-green-500 transform -translate-x-1/2 opacity-0"></div>
+                <div className="vine-leaf absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-400 rounded-full opacity-0"></div>
+                <div className="experience-card bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border shadow-xl transform scale-0 max-w-md mx-auto">
+                  <div className="flex items-center mb-4">
+                    <div className="company-logo w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-white font-bold text-lg">CR</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">Course Representative</h3>
+                      <p className="text-sm text-muted-foreground">CSCI 1120, Dalhousie</p>
+                      <p className="text-xs text-primary">Jan 2025 – Apr 2025</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Acted as liaison between students and faculty, organizing study sessions 
+                    and peer support initiatives.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
